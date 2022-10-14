@@ -17,8 +17,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composetutorial.ui.theme.ComposeTutorialTheme
-import androidx.compose.foundation.border
-import androidx.compose.material.primarySurface
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +54,7 @@ fun MessageCard(msg: Message) {
             )
 
             Spacer(modifier = Modifier.height(4.dp))
+
             Text(text = msg.body)
         }
     }
