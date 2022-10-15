@@ -1,5 +1,6 @@
 package com.example.composetutorial
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -50,19 +51,31 @@ fun MessageCard(msg: Message) {
         Column {
             Text(
                 text = msg.author,
-                color = MaterialTheme.colors.secondaryVariant
+                color = MaterialTheme.colors.secondary,
+                style = MaterialTheme.typography.h6
             )
 
             Spacer(modifier = Modifier.height(4.dp))
+            Surface(shape = MaterialTheme.shapes.medium, elevation = 3.dp){
+                Text(
+                    text = msg.body,
+                    modifier = Modifier.padding(all = 4.dp),
+                    style = MaterialTheme.typography.subtitle1
+                )
+            }
 
-            Text(text = msg.body)
         }
     }
 }
 
 
 
-@Preview(showBackground = true)
+@Preview(name = "Light Mode")
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
 @Composable
 fun PreviewMessageCard() {
     ComposeTutorialTheme {
