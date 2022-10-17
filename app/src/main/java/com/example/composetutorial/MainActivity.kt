@@ -2,7 +2,6 @@ package com.example.composetutorial
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Surface
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColorAsState
@@ -27,12 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composetutorial.ui.theme.ComposeTutorialTheme
 import androidx.compose.foundation.clickable
-import androidx.compose.material.Colors
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +37,8 @@ class MainActivity : ComponentActivity() {
             ComposeTutorialTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                    // MessageCard(Message("Android", "Jetpack Compose"))
-                    val convo = SampleData()
-                    val messages = convo.getAllMessages()
+                    val conversations = SampleData()
+                    val messages = conversations.getAllMessages()
                     Conversations(messages = messages)
 
                 }
@@ -80,20 +76,29 @@ private fun MessageCard(msg: Message) {
         }
 
         val surfaceColor by animateColorAsState(
-            if(isExpanded) MaterialTheme.colors.secondary else MaterialTheme.colors.surface
+            if(isExpanded) MaterialTheme.colors.onSecondary else MaterialTheme.colors.surface
         )
 
         Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
             Text(
                 text = msg.author,
-                color = MaterialTheme.colors.secondary,
+                //color = MaterialTheme.colors.secondary,
+                color = when(msg.author){
+                    "Abby" -> MaterialTheme.colors.onSurface
+                    "Samson" -> MaterialTheme.colors.onSecondary
+                    else -> MaterialTheme.colors.secondary
+
+                },
                 style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            Surface(shape = MaterialTheme.shapes.medium, elevation = 3.dp, color = MaterialTheme.colors..,
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                elevation = 3.dp,
+                color = surfaceColor,
             modifier = Modifier.animateContentSize().padding(1.dp),
             ){
                 Text(
@@ -114,7 +119,9 @@ private fun MessageCard(msg: Message) {
 fun Conversations(messages: List<Message>){
     LazyColumn{
         items(messages) {
-                message -> MessageCard(msg = message)
+                message -> MessageCard(
+            msg = message
+        )
         }
     }
 }
