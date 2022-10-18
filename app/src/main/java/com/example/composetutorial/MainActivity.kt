@@ -87,7 +87,6 @@ private fun MessageCard(msg: Message) {
                     "Abby" -> MaterialTheme.colors.onSurface
                     "Samson" -> MaterialTheme.colors.onSecondary
                     else -> MaterialTheme.colors.secondary
-
                 },
                 style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Bold
